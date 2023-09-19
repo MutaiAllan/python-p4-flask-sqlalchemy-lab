@@ -23,8 +23,8 @@ def animal_by_id(id):
     response_body = f'''
         <ul>Name: {animal.name}</ul>
         <ul>Species: {animal.species}</ul>
-        <ul>Zookeeper: {animal.zookeeper.name}</ul>
-        <ul>Enclosure: {animal.enclouser.environment}</ul>
+        <ul>Zookeeper: {animal.zookeeper}</ul>
+        <ul>Enclosure: {animal.enclosure}</ul>
     '''
     response = make_response(response_body, 200)
     return response
@@ -33,8 +33,9 @@ def animal_by_id(id):
 def zookeeper_by_id(id):
     keeper = Zookeeper.query.filter(Zookeeper.id == id).first()
     response_body = f'''
-        <ul>Zookeeper: {keeper.name}</ul>
-        <ul>Enclosure: {keeper.enclouser}</ul>
+        <ul>Name: {keeper.name}</ul>
+        <ul>Birthday: {keeper.birthday}</ul>
+        <ul>Animal: {keeper.name}</ul>
     '''
     response = make_response(response_body, 200)
 
@@ -42,7 +43,14 @@ def zookeeper_by_id(id):
 
 @app.route('/enclosure/<int:id>')
 def enclosure_by_id(id):
-    return ''
+    enclosure = Enclosure.query.filter(Enclosure.id == id).first()
+    response_body =f"""
+        <ul>Environment: {enclosure.environment}</ul>
+        <ul>Open to Visitors: {enclosure.open_to_visitors}</ul>
+        <ul>Animal: {enclosure.environment}</ul>
+    """
+    response = make_response(response_body, 200)
+    return response
 
 
 if __name__ == '__main__':

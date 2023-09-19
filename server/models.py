@@ -14,7 +14,7 @@ class Zookeeper(db.Model):
     name = db.Column(db.String)
     birthday = db.Column(db.String)
 
-    #animals = db.relationship('Animal', backref='animals')
+    animals = db.relationship('Animal', back_populates='zookeeper')
 
     #def __init__(self, name, birthday):
     #    self.name = name
@@ -27,7 +27,7 @@ class Enclosure(db.Model):
     environment = db.Column(db.String)
     open_to_visitors = db.Column(db.Boolean)
 
-    #animals = db.relationship('Animal', backref='enclosers')
+    animals = db.relationship('Animal', back_populates='enclosure')
 
     #def __init__(self, environment, open_to_visitors):
     #   self.environment = environment
@@ -40,11 +40,11 @@ class Animal(db.Model):
     name = db.Column(db.String)
     species = db.Column(db.String)
 
-    #zookeeper_id = db.Column(db.Integer, db.ForeignKey('zookeepers.id'))
-    #enclosure_id = db.Column(db.Integer, db.ForeignKey('enclosures.id'))
+    zookeeper_id = db.Column(db.Integer, db.ForeignKey('zookeepers.id'))
+    enclosure_id = db.Column(db.Integer, db.ForeignKey('enclosures.id'))
 
-    #zookeeper = db.relationship('Zookeeper', backref='animals')
-    #enclosure = db.relationship('Enclosure', backref='animals')
+    zookeeper = db.relationship('Zookeeper', back_populates='animals')
+    enclosure = db.relationship('Enclosure', back_populates='animals')
 
     #def __init__(self, name, species):
     #    self.name = name
